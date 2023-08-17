@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import com.example.demo.service.IVehiculoService;
 
 @Controller
 @RequestMapping("/reportes")
+
 public class ReporteController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ClienteController.class);

@@ -10,6 +10,21 @@
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://www.teahub.io/photos/full/99-994473_fondos-para-paginas-web.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el espacio */
+    background-position: center center; /* Centra la imagen en el cuerpo */
+    color: #FFFFFF;
+    padding: 25px;
+    height: 100vh;
+  }
+</style>
+
+
 <body class="p-3 mb-2 bg-light text-dark">
 	<form th:action="@{/empleados/retirarVehiculo}" th:object="${reserva}" th:method="GET">
 		<table class="table table-info table-hover table-bordered border-info border-3 align-middle">

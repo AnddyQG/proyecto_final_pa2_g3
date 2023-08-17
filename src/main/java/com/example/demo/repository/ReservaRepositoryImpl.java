@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.repository.modelo.Reserva;
@@ -133,8 +134,9 @@ public class ReservaRepositoryImpl implements IReservaRepository{
 		TypedQuery<Reserva>query=this.entityManager.createQuery(jpql,Reserva.class);
 		
 		List<Reserva>reservas= query.getResultList();
-		reservas.parallelStream().forEach(a->a.getCliente().getCedula());
-		
+		reservas.forEach(a->a.getCliente().getCedula());
+		//revisar este error la pagina web se cae
+		// reservas.parallelStream().forEach(a->a.getCliente().getCedula());
 		return reservas;
 		
 	}

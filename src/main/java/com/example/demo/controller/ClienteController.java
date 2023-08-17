@@ -37,10 +37,7 @@ public class ClienteController {
 	@Autowired
 	private IReservaService iReservaService;
 
-	LocalDateTime fInicio = null;
-	LocalDateTime fFin = null;
-	String ced = null;
-	String tarj = null;
+
 
 	@GetMapping("/opciones")
 	public String vistaCliente() {
@@ -67,7 +64,7 @@ public class ClienteController {
 	@GetMapping("/vehiculosDisponibles")
 	public String vistaVehiculosDisponibles(Model model, Vehiculo vehiculo) {
 
-		List<Vehiculo> listaVehiculos = this.iVehiculoService.buscarTodosVehi();
+		List<Vehiculo> listaVehiculos = this.iVehiculoService.buscarVehiDisponibles();
 		model.addAttribute("vehiculos", listaVehiculos);
 		return "vistaListaDisponibles";
 

@@ -44,6 +44,16 @@ public class ReservaServiceImpl implements IReservaService{
 		Cliente cliente = this.clienteRepo.encontrarPorCedula(cedula);
 
 		List<Reserva>reservas =this.iReservaRepo.encontrarTodasReserva();
+		
+		LocalDateTime fresIni=null;
+		LocalDateTime fresFin=null;
+		
+		for(Reserva reserva: reservas) {
+			
+			fresIni=reserva.getInicio();
+			fresFin=reserva.getFin();
+		}
+		
 		Boolean valid=true;
 		valid= validacionReserva(inicio, fin, reservas);
 		if(valid !=true) {
@@ -163,10 +173,19 @@ this.iReservaRepo.actualizar(reserva);
 		// TODO Auto-generated method stub
 		Vehiculo vehiculo = this.iVehiculoRepo.encontrarPlaca(placa);
 		Cliente cliente = this.clienteRepo.encontrarPorCedula(cedula);
-
+ 
+		
+ 
 		List<Reserva>reservas =this.iReservaRepo.encontrarTodasReserva();
+		
+	
+	
+		
 		Boolean valid=true;
-		valid= validacionReserva(inicio, fin, reservas);
+		valid= this.validacionReserva(inicio, fin, reservas);
+		
+		
+		
 		if(valid !=true) {
 			return "FECHA OCUPADA INTENTE DE NUEVO EN OTRAS FECHAS";
 		}else {
