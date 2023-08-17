@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>   
+	<meta charset="UTF-8">   
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">   
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">   
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<title>Buscar Reserva Por Numero</title>
+</head>
+
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://fondosmil.com/fondo/35285.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el espacio */
+    background-position: center center; /* Centra la imagen en el cuerpo */
+    color: #FFFFFF;
+    padding: 25px;
+    height: 100vh;
+  }
+</style>
+
+<body class="p-3 mb-2 bg-dark text-white"> 
+
+	<h2>Búsqueda de Reserva por numero</h2>
+
+	<form th:action="@{/empleados/vistaBuscarReserva}" method="get">
+		<label for="numero">Ingrersar Numero de Reserva:</label>
+		<input type="text" id="reserva.numero" name="numero" placeholder="Ingrese la numero">
+		<button type="submit">Buscar</button>
+	</form>
+
+	<table class="table table-dark table-striped-columns" style="margin: 0 auto;">
+		<thead>
+			<tr>
+				<th>Número placa</th>
+				<th>Número Modelo</th>
+				<th>Número Marca</th>
+				<th>Número Año de Fabricacion</th>
+				<th>Número Pais de Fabricacion</th>
+				<th>Número Estado</th>
+				<th>Número Cilindraje</th>
+				<th>Número Evaluo</th>
+				<th>Número Valor por Dia</th>
+				
+				
+				<!-- Agrega más columnas según los datos que deseas mostrar -->
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="vehiculo : ${vehiculos}">
+				<td th:text="${vehiculo.placa}"></td>
+				<td th:text="${vehiculo.modelo}"></td>
+				<td th:text="${vehiculo.marca}"></td>
+				<td th:text="${vehiculo.anioF}"></td>
+				<td th:text="${vehiculo.paisF}"></td>
+				<td th:text="${vehiculo.estado}"></td>
+				<td th:text="${vehiculo.cilindraje}"></td>
+				<td th:text="${vehiculo.evaluo}"></td>
+				<td th:text="${vehiculo.valorPorDia}"></td>
+				
+				<!-- Agrega más celdas según los datos que deseas mostrar -->
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+
+</html>
