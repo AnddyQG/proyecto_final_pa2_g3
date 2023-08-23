@@ -34,7 +34,7 @@
 				<th class="text-center">Apellido</th>
 				
 				
-				<th class="text-center">Reserva Valor IVA</th>
+				<th class="text-center">Reserva Valor SubTotal</th>
 				<th class="text-center">Reserva Valor Total</th>
 			</tr>
 		</thead>
@@ -46,7 +46,7 @@
 				<td class="text-center" th:text="${reserva.cliente.apellido}"></td>
 				
 			
-				<td class="text-center" th:text="${reserva.ice}"></td>
+				<td class="text-center" th:text="${reserva.subtotal}"></td>
 				<td class="text-center" th:text="${reserva.total}"></td>
 			</tr>
 		</tbody>

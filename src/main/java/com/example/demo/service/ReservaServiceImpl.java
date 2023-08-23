@@ -206,7 +206,7 @@ this.iReservaRepo.actualizar(reserva);
 				Integer dias;
 				dias = Period.between(LocalDate.from(inicio), LocalDate.from(fin)).getDays();
 				// Calculamos el periodo de dias entre la fecha de inicio y la de fin
-				BigDecimal valorSubtotal = vehiculo.getValorPorDia().multiply(new BigDecimal(dias));
+				BigDecimal valorSubtotal = vehiculo.getValorPorDia().multiply(new BigDecimal(dias+1));
 				BigDecimal ice = valorSubtotal.multiply(new BigDecimal(0.15));
 				BigDecimal totalPrecio = valorSubtotal.add(ice);
 
@@ -278,6 +278,7 @@ this.iReservaRepo.actualizar(reserva);
 		
 		BigDecimal valorF = new BigDecimal(0);
 		BigDecimal valorT = new BigDecimal(0);
+		BigDecimal valorIce = new BigDecimal(0);
 		List<ReporteVehiculoDto> reporte = new ArrayList<>();
 		
 		for(Vehiculo vehiculo: vehiculos) {
@@ -286,17 +287,18 @@ this.iReservaRepo.actualizar(reserva);
 			List<Reserva>list= this.buscarReportePlaca(vehiculo.getPlaca());
 			
 			for(Reserva res : list) {
-				valorT= valorT.add(res.getSubtotal());
-				valorF=valorF.add(res.getTotal());
+				valorIce= res.getIce();
+				valorT= valorT.add(res.getSubtotal()).add(valorIce);
+				
 			}
 			dto.setPlaca(vehiculo.getPlaca());
 			dto.setModelo(vehiculo.getModelo());
-			dto.setValorIva(valorT);
-			dto.setValoTotal(valorF);
+			dto.setValorIva(valorIce);
+			dto.setValoTotal(valorT);
 			reporte.add(dto);
 			
 			
-			valorF = new BigDecimal(0);
+			
 			valorT = new BigDecimal(0);
 			
 			
