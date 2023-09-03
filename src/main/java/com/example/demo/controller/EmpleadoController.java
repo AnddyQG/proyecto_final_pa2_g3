@@ -141,4 +141,12 @@ public class EmpleadoController {
 		return "vistaBuscarNumReserva";
 	}
 	
+	@GetMapping("/vistaRetirarSinReserva")
+	public String vistaRetirarSinReserva() {
+		
+		
+		return "vistaSinReserva";
+	}
+	
+	
 }

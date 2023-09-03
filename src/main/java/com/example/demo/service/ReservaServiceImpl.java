@@ -45,14 +45,8 @@ public class ReservaServiceImpl implements IReservaService{
 
 		List<Reserva>reservas =this.iReservaRepo.encontrarTodasReserva();
 		
-		LocalDateTime fresIni=null;
-		LocalDateTime fresFin=null;
+
 		
-		for(Reserva reserva: reservas) {
-			
-			fresIni=reserva.getInicio();
-			fresFin=reserva.getFin();
-		}
 		
 		Boolean valid=true;
 		valid= validacionReserva(inicio, fin, reservas);
