@@ -1,11 +1,11 @@
 package com.example.demo.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,26 +32,24 @@ public class ClienteController {
 	private IClienteService clienteService;
 
 	@Autowired
-	private IVehiculoService iVehiculoService;
+	private IVehiculoService vehiculoService;
 
 	@Autowired
-	private IReservaService iReservaService;
+	private IReservaService reservaService;
 
-
-
+	// http://localhost:8080/renta/clientes/opciones
 	@GetMapping("/opciones")
 	public String vistaCliente() {
-
 		return "vistaCliente";
 	}
 
+	// http://localhost:8080/renta/clientes/registrarCli
 	@GetMapping("/registrarCli")
 	public String vistaRegistrarCliente(Cliente cliente) {
-
 		return "vistaRegistrarCliente";
-
 	}
 
+	// http://localhost:8080/renta/clientes/insertar
 	@PostMapping("/insertar")
 	public String insertarCliente(Cliente cliente) {
 
@@ -61,44 +59,57 @@ public class ClienteController {
 		return "ClieGuardado";
 	}
 
-	@GetMapping("/vehiculosDisponibles")
-	public String vistaVehiculosDisponibles(Model model, Vehiculo vehiculo) {
+	// http://localhost:8080/renta/clientes/vehiculosDisponibles
+	// @GetMapping("/vehiculosDisponibles")
+	// public String vistaVehiculosDisponibles(Model model, Vehiculo vehiculo) {
 
-		List<Vehiculo> listaVehiculos = this.iVehiculoService.buscarVehiDisponibles();
-		model.addAttribute("vehiculos", listaVehiculos);
-		return "vistaListaDisponibles";
+	// List<Vehiculo> listaVehiculos = this.vehiculoService.buscarVehiDisponibles();
+	// model.addAttribute("vehiculos", listaVehiculos);
+	// return "vistaListaDisponibles";
 
+	// }
+
+	// buscar por placa y modelo
+	@GetMapping("/busquedaMarcayModelo")
+	public String vistaBuscarMarcayModelo(Model model, @Param("marca") String marca, @Param("modelo") String modelo) {
+
+		List<Vehiculo> vehiculos = this.vehiculoService.buscarMarcayModeloList(marca, modelo);
+		model.addAttribute("marca", marca);
+		model.addAttribute("modelo", modelo);
+		model.addAttribute("vehiculos", vehiculos);
+
+		return "vistaBuscarVehiculoMarcayModelo";
 	}
 
+	// http://localhost:8080/renta/clientes/registrarReserva
 	@GetMapping("/registrarReserva")
 	public String vistaInsertarReserva(Model model) {
-
 		model.addAttribute("reserva", new ReservaDto());
-
 		return "vistaRegistrarReserva";
 	}
 
-	
+	// http://localhost:8080/renta/clientes/reservar
 	@PostMapping("/reservar")
 	public String insertarReserva(@ModelAttribute ReservaDto dto, RedirectAttributes attributes) {
 
-	String mensaje =this.iReservaService.reservarRetorno(dto.getPlaca(), dto.getCedula(), dto.getInicio(), dto.getFin(),
-			dto.getNumeroTarjeta());
+		String mensaje = this.reservaService.reservarRetorno(dto.getPlaca(), dto.getCedula(), dto.getInicio(),
+				dto.getFin(),
+				dto.getNumeroTarjeta());
 
-		
 		if (mensaje.equals("Reserva Exitosa")) {
-			//CREAR EN ESTE REDIRECT QUE NOS MANDE A UNA PAGINA NUEVA QUE DIGA RESERVA EXITOSA
+			// CREAR EN ESTE REDIRECT QUE NOS MANDE A UNA PAGINA NUEVA QUE DIGA RESERVA
+			// EXITOSA
 			return "redirect:/clientes/reservaExitosa"; // Redirige a la lista de reservas
-        } else {
-            attributes.addFlashAttribute("mensajeError", mensaje);
-            return "redirect:/clientes/registrarReserva";// Redirige de vuelta al formulario
-        }
-		
+		} else {
+			attributes.addFlashAttribute("mensajeError", mensaje);
+			return "redirect:/clientes/registrarReserva";// Redirige de vuelta al formulario
+		}
+
 	}
-	
+
+	// http://localhost:8080/renta/clientes/reservaExitosa
 	@GetMapping("/reservaExitosa")
 	public String vistaReservaExitosa() {
-		
 		return "vistaReservaExitosa";
 	}
 }

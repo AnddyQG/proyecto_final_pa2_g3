@@ -34,35 +34,25 @@ public class EmpleadoController {
 	@Autowired
 	private IReservaService iReservaService;
 	
-	
+	// http://localhost:8080/renta/empleados/opciones
 	@GetMapping("/opciones")
 	public String vistaEmpleados() {
-		
 		return "vistaEmpleados";
-		
 	}
 	
 	//insertarCliente desde Empleado
-	
+	// http://localhost:8080/renta/empleados/registrarCliEmpleado
 	@GetMapping("/registrarCliEmpleado")
 	public String vistaRegistrarCliente(Cliente cliente) {
-
 		return "vistaEmpleadoRegistrarCliente";
-
 	}
 
 	@PostMapping("/insertar")
 	public String insertarCliente(Cliente cliente) {
-
 		cliente.setRegistro("E");
 		this.clienteService.registrarC(cliente);
-
 		return "EmplClieGuardado";
 	}
-	
-	
-	
-	
 	
 	@GetMapping("/registrarVehiculo")
 	public String nuevoVehiculo(Vehiculo vehiculo) {
@@ -72,7 +62,6 @@ public class EmpleadoController {
 	@PostMapping("/insertarVehiculo")
 	public String insertarVehiculo(Vehiculo vehiculo) {
 		this.iVehiculoService.ingresarV(vehiculo);
-		
 		return "vehiGuardar";
 	}
 	
@@ -82,7 +71,6 @@ public class EmpleadoController {
 		List<Cliente>clientes=this.clienteService.encontrarPorCedulaList(cedula);
 		model.addAttribute("cedula",cedula);
 		model.addAttribute("clientes",clientes);
-		
 		
 		return "vistaBuscrClienteIngresar";
 	}
@@ -147,15 +135,10 @@ public class EmpleadoController {
 		
 	}
 
-	
 	//vista buscar vehiculo para retirar
 	@GetMapping("/buscarNumeroReserva")
 	public String buscarNumeroRese(Reserva reserva) {
 		return "vistaBuscarNumReserva";
 	}
-	
-	
-	
-	
 	
 }

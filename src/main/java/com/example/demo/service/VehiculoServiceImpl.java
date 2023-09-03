@@ -66,7 +66,6 @@ public class VehiculoServiceImpl implements IVehiculoService{
 
 	@Override
 	public Vehiculo encontrarPlaca(String placa) {
-		// TODO Auto-generated method stub
 		return this.iVehiculoRepo.encontrarPlaca(placa);
 	}
 
@@ -82,7 +81,9 @@ public class VehiculoServiceImpl implements IVehiculoService{
 		return this.iVehiculoRepo.encontrarVehiculoVip(fecha);
 	}
 
+	@Override
+	public List<Vehiculo> buscarMarcayModeloList(String placa, String modelo) {
+		return this.iVehiculoRepo.encontrarMarcayModeloList(placa, modelo);
+	}
 
-	
-	
 }

@@ -17,32 +17,26 @@ import jakarta.transaction.Transactional;
 
 public class VehiculoRepositoryImpl implements IVehiculoRepository{
 
-	
-
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
 	public void insertar(Vehiculo vehiculo) {
-		// TODO Auto-generated method stub
 		this.entityManager.persist(vehiculo);
 	}
 
 	@Override
 	public void actualizar(Vehiculo vehiculo) {
-		// TODO Auto-generated method stub
 		this.entityManager.merge(vehiculo);
 	}
 
 	@Override
 	public Vehiculo encontrar(Integer id) {
-		// TODO Auto-generated method stub
 		return this.entityManager.find(Vehiculo.class, id);
 	}
 
 	@Override
 	public void eliminar(Integer id) {
-		// TODO Auto-generated method stub
 		Vehiculo vehiculo= this.encontrar(id);
 		this.entityManager.remove(vehiculo);
 	}
@@ -109,6 +103,15 @@ public class VehiculoRepositoryImpl implements IVehiculoRepository{
 		
 		
 		
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Vehiculo> encontrarMarcayModeloList(String marca, String modelo) {
+		String jpql="SELECT v FROM Vehiculo v WHERE v.marca = :datoMarca AND v.modelo =: datoModelo";
+		TypedQuery<Vehiculo>query=this.entityManager.createQuery(jpql,Vehiculo.class);
+		query.setParameter("datoMarca", marca);
+		query.setParameter("datoModelo", modelo);
 		return query.getResultList();
 	}
 	

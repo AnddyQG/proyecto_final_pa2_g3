@@ -15,7 +15,6 @@ public interface IClienteRepository {
 	public Cliente encontrarPorCedula(String cedula);
 	//encontrar por cedula List
 	public List<Cliente> encontrarPorCedulaList(String cedula);
-
 	//encontrar todos los clientes
 	public List<Cliente> encontrarTodos();
 }
