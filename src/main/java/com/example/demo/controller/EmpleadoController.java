@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,9 @@ import com.example.demo.service.IVehiculoService;
 @Controller
 @RequestMapping("/empleados")
 public class EmpleadoController {
-
+	
+	private static final Logger LOG = Logger.getLogger(EmpleadoController.class);
+	
 	@Autowired
 	private IVehiculoService iVehiculoService;
 	
@@ -37,6 +40,9 @@ public class EmpleadoController {
 	// http://localhost:8080/renta/empleados/opciones
 	@GetMapping("/opciones")
 	public String vistaEmpleados() {
+		
+		LOG.info("opciones");
+		
 		return "vistaEmpleados";
 	}
 	
@@ -44,11 +50,17 @@ public class EmpleadoController {
 	// http://localhost:8080/renta/empleados/registrarCliEmpleado
 	@GetMapping("/registrarCliEmpleado")
 	public String vistaRegistrarCliente(Cliente cliente) {
+		
+		LOG.info("registrarCliEmpleado");
+		
 		return "vistaEmpleadoRegistrarCliente";
 	}
 
 	@PostMapping("/insertar")
 	public String insertarCliente(Cliente cliente) {
+		
+		LOG.info("insertar");
+		
 		cliente.setRegistro("E");
 		this.clienteService.registrarC(cliente);
 		return "EmplClieGuardado";
@@ -56,11 +68,17 @@ public class EmpleadoController {
 	
 	@GetMapping("/registrarVehiculo")
 	public String nuevoVehiculo(Vehiculo vehiculo) {
+	
+		LOG.info("registrarVehiculo");
+		
 		return "nuevoVehiculoEmpleado";
 	}
 	
 	@PostMapping("/insertarVehiculo")
 	public String insertarVehiculo(Vehiculo vehiculo) {
+		
+		LOG.info("insertarVehiculo");
+		
 		this.iVehiculoService.ingresarV(vehiculo);
 		return "vehiGuardar";
 	}
@@ -68,6 +86,9 @@ public class EmpleadoController {
 	//buscar por cedula
 	@GetMapping("/vistaBusqueda")
 	public String paginaBuscarCliente(Model model,@Param("cedula")String cedula) {
+		
+		LOG.info("vistaBusqueda");
+		
 		List<Cliente>clientes=this.clienteService.encontrarPorCedulaList(cedula);
 		model.addAttribute("cedula",cedula);
 		model.addAttribute("clientes",clientes);
@@ -79,6 +100,8 @@ public class EmpleadoController {
 	@GetMapping("vistaBusquedaPlaca")
 	public String paginaBuscarPlaca(Model model,@Param("placa")String placa) {
 		
+		LOG.info("vistaBusquedaPlaca");
+		
 		List<Vehiculo>vehiculos =this.iVehiculoService.encontrarPlacaList(placa);
 		model.addAttribute("placa",placa);
 		model.addAttribute("vehiculos",vehiculos);
@@ -89,6 +112,8 @@ public class EmpleadoController {
 	//buscar Por reserva
 	@GetMapping("/vistaBuscarReserva")
 	public String paginaBuscarReserva(Model model,@Param("numero")String numero) {
+		
+		LOG.info("vistaBuscarReserva");
 		
 		List<Reserva> reservas=this.iReservaService.buscarList(numero);
 		model.addAttribute("reservas",reservas);
@@ -102,6 +127,8 @@ public class EmpleadoController {
 	@PutMapping("/retirarReserva/{numero}")
 	public String retirarReserva(@PathVariable("numero")String numero,Reserva reserva) {
 		
+		LOG.info("retirarReserva");
+		
 		this.iReservaService.retirarVehiculo(numero);
 		
 		return "vistaRetiroRealizado";
@@ -111,6 +138,8 @@ public class EmpleadoController {
 	
 	@GetMapping("/retirarVehiculo")
 	public String retirarVehiculoReserva(Reserva r,Model model) {
+		
+		LOG.info("retirarVehiculo");
 		
 		Reserva reserva=this.iReservaService.buscarNumero(r.getNumero());
 		
@@ -138,12 +167,16 @@ public class EmpleadoController {
 	//vista buscar vehiculo para retirar
 	@GetMapping("/buscarNumeroReserva")
 	public String buscarNumeroRese(Reserva reserva) {
+		
+		LOG.info("buscarNumeroReserva");
+		
 		return "vistaBuscarNumReserva";
 	}
 	
 	@GetMapping("/vistaRetirarSinReserva")
 	public String vistaRetirarSinReserva() {
 		
+		LOG.info("vistaRetirarSinReserva");
 		
 		return "vistaSinReserva";
 	}

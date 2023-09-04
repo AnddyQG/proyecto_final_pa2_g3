@@ -5,8 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +25,7 @@ import com.example.demo.service.IVehiculoService;
 
 public class ReporteController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ClienteController.class);
+	private static final Logger LOG = Logger.getLogger(ReporteController.class);
 
 	@Autowired
 	private IReservaService iReservaService;
@@ -35,16 +34,25 @@ public class ReporteController {
 
 	@GetMapping("/opciones")
 	public String vistaReporte() {
+		
+		LOG.info("opciones");
+		
 		return "vistaReporte";
 	}
 
 	@GetMapping("/buscar")
 	public String buscarR(ReporteDto dto, VehiculoDto dto2) {
+		
+		LOG.info("buscar");
+		
 		return "vistaBuscarReporte";
 	}
 
 	@GetMapping("/consultarRangoFechas")
 	public String buscarRangoFechas(ReporteDto dto, Model model) {
+		
+		LOG.info("consultarRangoFechas");
+		
 		List<Reserva> reservas = this.iReservaService.buscarRangoFecha(LocalDateTime.parse(dto.getInicio()),
 				LocalDateTime.parse(dto.getFin()));
 		model.addAttribute("reservas", reservas);
@@ -54,6 +62,9 @@ public class ReporteController {
 	// buscar Clientes vip
 	@GetMapping("/buscarVip")
 	public String buscarCliVip(Model model) {
+		
+		LOG.info("buscarVip");
+		
 		List<Reserva> reservas = this.iReservaService.buscarClientesVip();
 		model.addAttribute("reservas", reservas);
 		return "vistaBuscarCliVip";
@@ -62,11 +73,16 @@ public class ReporteController {
 	// reporte vehiculos Vip
 	@GetMapping("/reporteVehiculo")
 	public String reporteVehiculosVip(Reserva reserva) {
+		
+		LOG.info("reporteVehiculo");
+		
 		return "vistaReporteVehiVip";
 	}
 
 	@GetMapping("/buscarVipVehiculo")
 	public String buscarVehiculosVip(Reserva dto, Model model) {
+		
+		LOG.info("buscarVipVehiculo");
 
 		String fecha = "%" + dto.getEstado() + "%";
 		List<Vehiculo> vehiculos = this.iVehiculoService.buscarVehiculoVip(fecha);

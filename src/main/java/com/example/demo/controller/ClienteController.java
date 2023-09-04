@@ -2,8 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -26,7 +25,7 @@ import com.example.demo.service.IVehiculoService;
 
 public class ClienteController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ClienteController.class);
+	private static final Logger LOG = Logger.getLogger(ClienteController.class);
 
 	@Autowired
 	private IClienteService clienteService;
@@ -40,18 +39,26 @@ public class ClienteController {
 	// http://localhost:8080/renta/clientes/opciones
 	@GetMapping("/opciones")
 	public String vistaCliente() {
+		
+		LOG.info("opciones");
+		
 		return "vistaCliente";
 	}
 
 	// http://localhost:8080/renta/clientes/registrarCli
 	@GetMapping("/registrarCli")
 	public String vistaRegistrarCliente(Cliente cliente) {
+		
+		LOG.info("registrarCli");
+		
 		return "vistaRegistrarCliente";
 	}
 
 	// http://localhost:8080/renta/clientes/insertar
 	@PostMapping("/insertar")
 	public String insertarCliente(Cliente cliente) {
+		
+		LOG.info("insertar");
 
 		cliente.setRegistro("C");
 		this.clienteService.registrarC(cliente);
@@ -73,6 +80,8 @@ public class ClienteController {
 	@GetMapping("/busquedaMarcayModelo")
 	public String vistaBuscarMarcayModelo(Model model, @Param("marca") String marca, @Param("modelo") String modelo) {
 
+		LOG.info("busquedaMarcayModelo");
+		
 		List<Vehiculo> vehiculos = this.vehiculoService.buscarMarcayModeloList(marca, modelo);
 		model.addAttribute("marca", marca);
 		model.addAttribute("modelo", modelo);
@@ -84,6 +93,9 @@ public class ClienteController {
 	// http://localhost:8080/renta/clientes/registrarReserva
 	@GetMapping("/registrarReserva")
 	public String vistaInsertarReserva(Model model) {
+		
+		LOG.info("registrarReserva");
+		
 		model.addAttribute("reserva", new ReservaDto());
 		return "vistaRegistrarReserva";
 	}
@@ -92,6 +104,8 @@ public class ClienteController {
 	@PostMapping("/reservar")
 	public String insertarReserva(@ModelAttribute ReservaDto dto, RedirectAttributes attributes) {
 
+		LOG.info("reservar");
+		
 		String mensaje = this.reservaService.reservarRetorno(dto.getPlaca(), dto.getCedula(), dto.getInicio(),
 				dto.getFin(),
 				dto.getNumeroTarjeta());
@@ -110,6 +124,9 @@ public class ClienteController {
 	// http://localhost:8080/renta/clientes/reservaExitosa
 	@GetMapping("/reservaExitosa")
 	public String vistaReservaExitosa() {
+		
+		LOG.info("reservaExitosa");
+		
 		return "vistaReservaExitosa";
 	}
 }
