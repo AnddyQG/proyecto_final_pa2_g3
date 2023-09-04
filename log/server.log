@@ -1,0 +1,10 @@
+2023-09-03 19:46:24 INFO  MenuControler:19 - botones
+2023-09-03 19:46:27 INFO  ClienteController:43 - opciones
+2023-09-03 19:47:10 INFO  ClienteController:52 - registrarCli
+2023-09-03 19:47:20 INFO  ClienteController:43 - opciones
+2023-09-03 19:47:24 INFO  ClienteController:83 - busquedaMarcayModelo
+2023-09-03 19:48:31 INFO  EmpleadoController:44 - opciones
+2023-09-03 19:48:33 INFO  EmpleadoController:179 - vistaRetirarSinReserva
+2023-09-03 19:48:43 INFO  EmpleadoController:171 - buscarNumeroReserva
+2023-09-03 19:49:38 INFO  EmpleadoController:44 - opciones
+2023-09-03 19:49:39 INFO  EmpleadoController:103 - vistaBusquedaPlaca
