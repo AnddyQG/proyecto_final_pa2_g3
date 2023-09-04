@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.repository.modelo.Cliente;
+import com.example.demo.repository.modelo.Reserva;
 import com.example.demo.repository.modelo.Vehiculo;
 import com.example.demo.repository.modelo.dto.ReservaDto;
 import com.example.demo.service.IClienteService;
@@ -123,10 +125,15 @@ public class ClienteController {
 
 	// http://localhost:8080/renta/clientes/reservaExitosa
 	@GetMapping("/reservaExitosa")
-	public String vistaReservaExitosa() {
+	public String vistaReservaExitosa(Reserva reserva,Model model) {
+		
+		List<Reserva>reservas=this.reservaService.buscarTodasReserva();
+		model.addAttribute("reservas",reservas);
 		
 		LOG.info("reservaExitosa");
 		
 		return "vistaReservaExitosa";
 	}
+	
+
 }

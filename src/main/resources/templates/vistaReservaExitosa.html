@@ -41,10 +41,25 @@
 				<p></p>
 				<p></p>
 				<p></p>
+				<table class="table table-dark">
+		<thead>
+			<tr>
+				<th>Numero</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="reserva:${reservas}">
+				<td th:text="${reserva.numero}"></td>
+				
+				
+			</tr>
+		</tbody>
+	</table>
+				
 				<p></p>
 				<input class="border border-danger-subtle p-3 mb-2 bg-dark text-white" type="submit" value="REGRESAR">
 			</div>
   
     
-</body>
-</html>
+    
